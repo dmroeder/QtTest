@@ -1,4 +1,4 @@
-from PyQt5 import QtGui, uic
+from PyQt5 import QtGui, QtWidgets,uic
 
 qtSurfaceFile = "surface.ui"
 ui_surface, base_surface = uic.loadUiType(qtSurfaceFile)
@@ -11,6 +11,8 @@ class Surface(base_surface, ui_surface):
 
         self.painter = QtGui.QPainter()
         self.Shapes = []
+        self.scene = QtWidgets.QGraphicsScene()
+        self.graphicsView.setScene(self.scene)
         
         #------------------
         # this is just temporary
@@ -23,6 +25,6 @@ class Surface(base_surface, ui_surface):
     def addShape(self, shape, x, y):
         self.Shapes.append(shape)
         s = shape
-        s.setParent(self.widget)
+        self.scene.addWidget(s)
         s.move(x,y)
         return
